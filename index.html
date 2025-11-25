@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>BEAK LAB - Organic Chemistry Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="BEAK LAB - Organic Chemistry research laboratory led by Prof. Doohyun Baek." />
+
+  <style>
+    :root {
+      --deep-green: #0f5a3a;
+      --deep-green-dark: #08432a;
+      --mint: #9dcfb7;
+      --bg: #f5f7f5;
+      --text-main: #1a1a1a;
+      --text-muted: #526066;
+      --border-soft: #dde7df;
+      --nav-height: 64px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout helpers */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 4.5rem 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p.lead {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    /* Top navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(245, 247, 245, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(221, 231, 223, 0.9);
+    }
+
+    .nav {
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--deep-green-dark);
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 25% 20%, #c9f2dc, var(--deep-green));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--deep-green);
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--deep-green-dark);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--deep-green);
+      color: white;
+      background: var(--deep-green);
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .nav-cta:hover {
+      background: var(--deep-green-dark);
+      border-color: var(--deep-green-dark);
+    }
+
+    /* Mobile nav */
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: none;
+      font-size: 1.4rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        background: rgba(245, 247, 245, 0.98);
+        flex-direction: column;
+        padding: 1rem 1.5rem 1.2rem;
+        border-bottom: 1px solid var(--border-soft);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      background: radial-gradient(circle at top left, #d3f0df, #f5f7f5 55%);
+      padding-top: 3.5rem;
+      padding-bottom: 4rem;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw, 2.6rem);
+      margin-bottom: 1rem;
+      color: var(--deep-green-dark);
+    }
+
+    .hero-kicker {
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--deep-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-tags {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 90, 58, 0.08);
+      color: var(--deep-green-dark);
+      border: 1px solid rgba(15, 90, 58, 0.15);
+    }
+
+    .hero-cta-row {
+      margin-top: 1.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      padding: 0.7rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--deep-green);
+      color: #fff;
+      border-color: var(--deep-green);
+    }
+
+    .btn-primary:hover {
+      background: var(--deep-green-dark);
+      border-color: var(--deep-green-dark);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 90, 58, 0.03);
+      border-color: rgba(15, 90, 58, 0.18);
+      color: var(--deep-green-dark);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 90, 58, 0.08);
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card {
+      border-radius: 1.25rem;
+      background: white;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+      padding: 1.5rem 1.6rem 1.8rem;
+      border: 1px solid rgba(157, 207, 183, 0.7);
+    }
+
+    .hero-molecule {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      background: conic-gradient(from 210deg, #d0f4e2, #0f5a3a, #7ccaa3, #d0f4e2);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 1.6rem;
+    }
+
+    .hero-card h3 {
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-card ul {
+      margin-top: 1rem;
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-card li span {
+      font-size: 0.75rem;
+      color: var(--deep-green);
+      margin-top: 0.15rem;
+    }
+
+    @media (max-width: 840px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+    }
+
+    /* Section styles */
+    .section-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid rgba(15, 90, 58, 0.2);
+      color: var(--deep-green-dark);
+      background: rgba(157, 207, 183, 0.18);
+      margin-bottom: 0.4rem;
+    }
+
+    /* Research section */
+    #research {
+      background: white;
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: #f9fbf9;
+      border-radius: 1rem;
+      padding: 1.3rem 1.4rem;
+      border: 1px solid var(--border-soft);
+    }
+
+    .card h3 {
+      color: var(--deep-green-dark);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .card small {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* People section */
+    .people-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .pi-card {
+      background: white;
+      border-radius: 1.1rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .pi-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, #d5f3df, var(--deep-green));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .pi-meta h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .pi-meta h4 {
+      font-size: 0.95rem;
+      color: var(--deep-green);
+      margin-bottom: 0.4rem;
+    }
+
+    .pi-meta p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .pi-meta dl {
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .pi-meta dt {
+      font-weight: 600;
+      display: inline;
+    }
+
+    .pi-meta dd {
+      display: inline;
+      margin: 0 0 0.25rem 0.25rem;
+    }
+
+    .people-list {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.2rem;
+    }
+
+    .people-group h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
+      color: var(--deep-green-dark);
+    }
+
+    .people-item {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Publications, News, Join */
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 2.5rem;
+    }
+
+    .pub-list,
+    .news-list,
+    .join-list {
+      list-style: none;
+      font-size: 0.95rem;
+    }
+
+    .pub-list li + li,
+    .news-list li + li,
+    .join-list li + li {
+      margin-top: 0.5rem;
+    }
+
+    .pub-venue {
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    .google-scholar {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Contact */
+    #contact {
+      background: white;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .contact-card {
+      background: #f9fbf9;
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.4rem 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 0.6rem;
+    }
+
+    .contact-card p {
+      margin-bottom: 0.3rem;
+    }
+
+    .map-placeholder {
+      border-radius: 1rem;
+      border: 1px dashed var(--border-soft);
+      padding: 1.2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background: #f5f9f6;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 1.2rem 0 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive grids */
+    @media (max-width: 900px) {
+      .research-grid,
+      .people-layout,
+      .two-column,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .pi-card {
+        grid-template-columns: minmax(0, 1fr);
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 600px) {
+      section {
+        padding: 3.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <div class="container nav">
+      <a href="#top" class="logo">
+        <div class="logo-mark">B</div>
+        <span>BEAK LAB</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#research">Research</a>
+        <a href="#people">People</a>
+        <a href="#publications">Publications</a>
+        <a href="#news">News</a>
+        <a href="#join">Join Us</a>
+        <a href="#contact">Contact</a>
+        <a href="#join" class="nav-cta">Graduate Positions</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="top">
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div>
+          <div class="hero-kicker">BEAK LAB · Organic Chemistry</div>
+          <h1 class="hero-title">
+            유기화학을 기반으로 새로운 분자와 반응을 탐구하는 연구실<br />
+          </h1>
+          <p class="lead">
+            BEAK LAB은 유기 분자의 합성, 반응성 제어, 기능성 분자 및 신소재 설계를 중심으로
+            혁신적인 유기화학 연구를 수행합니다. <br />
+            <span style="font-size:0.92rem;">(BEAK LAB explores novel molecules, reactions, and functional
+            materials through modern organic chemistry.)</span>
+          </p>
+
+          <div class="hero-tags">
+            <span class="tag">Organic Synthesis</span>
+            <span class="tag">Reaction Mechanism</span>
+            <span class="tag">Functional Molecules</span>
+            <span class="tag">Catalysis</span>
+          </div>
+
+          <div class="hero-cta-row">
+            <a href="#research" class="btn-primary">연구 분야 보기</a>
+            <a href="#join" class="btn-ghost">대학원/인턴 지원 안내</a>
+            <span class="hero-note">지도교수: 백두현 교수 (Prof. Doohyun Baek)</span>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Research highlights">
+          <div class="hero-molecule">⚛︎</div>
+          <h3>Research Highlights</h3>
+          <p style="font-size:0.92rem; color:var(--text-muted);">
+            We design and synthesize organic molecules, uncover reaction mechanisms,
+            and develop functional materials for catalysis and sensing.
+          </p>
+          <ul>
+            <li><span>•</span>새로운 유기 합성 경로 및 반응 설계</li>
+            <li><span>•</span>반응 메커니즘 규명 및 반응성 제어</li>
+            <li><span>•</span>기능성 유기 소재 및 분자 구조 설계</li>
+            <li><span>•</span>촉매 및 반응 조건 최적화 연구</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Research -->
+    <section id="research">
+      <div class="container">
+        <div class="section-header">
+          <div class="pill">Research</div>
+          <h2>연구 분야 (Research Areas)</h2>
+          <p class="lead">
+            BEAK LAB은 유기 합성, 반응 메커니즘, 기능성 분자 및 촉매 개발에 초점을 둡니다.
+          </p>
+        </div>
+
+        <div class="research-grid">
+          <article class="card">
+            <h3>1. 새로운 유기합성 전략 개발</h3>
+            <p>
+              기존 합성 경로의 한계를 극복하기 위해 선택성과 수율을 동시에 향상시킬 수 있는
+              새로운 유기합성 전략을 개발합니다. 복잡한 분자 구조를 효율적으로 구축하는
+              반응 설계에 중점을 둡니다.
+            </p>
+            <small>Design of efficient synthetic routes for complex organic molecules.</small>
+          </article>
+
+          <article class="card">
+            <h3>2. 반응 메커니즘 규명 및 반응성 제어</h3>
+            <p>
+              실험적 분석과 계산화학적 접근을 결합하여 유기반응의 메커니즘을 정밀하게 규명하고,
+              반응성을 결정하는 핵심 인자를 파악합니다. 이를 바탕으로 조건 최적화와
+              새로운 반응 개념을 제시합니다.
+            </p>
+            <small>Mechanistic studies to control reactivity and selectivity.</small>
+          </article>
+
+          <article class="card">
+            <h3>3. 기능성 유기 소재 및 분자 디자인</h3>
+            <p>
+              광반응, 전자전달, 분자 인식 등 특정 기능을 갖는 유기 분자를 설계·합성하여
+              센서, 촉매, 에너지 소재 등 다양한 응용 분야로 확장합니다.
+            </p>
+            <small>Design of functional molecules for sensing, catalysis, and energy.</small>
+          </article>
+
+          <article class="card">
+            <h3>4. 촉매 개발 및 반응 조건 최적화</h3>
+            <p>
+              금속 촉매 및 유기 촉매 시스템을 개발하고, 반응 효율을 극대화하는 조건
+              스크리닝 및 반응 공학적 최적화를 수행합니다.
+            </p>
+            <small>Development of catalytic systems and optimization of reaction conditions.</small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- People -->
+    <section id="people">
+      <div class="container">
+        <div class="section-header">
+          <div class="pill">People</div>
+          <h2>연구진 (People)</h2>
+          <p class="lead">
+            BEAK LAB은 유기화학에 대한 호기심과 열정을 가진 연구자들로 구성되어 있습니다.
+          </p>
+        </div>
+
+        <div class="people-layout">
+          <article class="pi-card">
+            <div class="pi-avatar">DB</div>
+            <div class="pi-meta">
+              <h3>백두현 교수 · Prof. Doohyun Baek</h3>
+              <h4>Principal Investigator, BEAK LAB</h4>
+              <p>
+                유기합성, 반응 메커니즘, 기능성 유기 소재 및 촉매 개발 연구를 수행하며
+                학문적 발견과 실질적 응용을 연결하는 연구를 지향합니다.
+              </p>
+              <dl>
+                <dt>Email</dt><dd>dhbaek@university.edu</dd><br />
+                <dt>Research</dt>
+                <dd>Organic synthesis, reaction mechanism, functional molecules, catalysis</dd>
+              </dl>
+            </div>
+          </article>
+
+          <div>
+            <div class="people-group">
+              <h4>Graduate Students</h4>
+              <div class="people-list">
+                <div class="people-item">김○○ (PhD) – 반응 메커니즘 및 전이상태 분석</div>
+                <div class="people-item">이○○ (PhD) – 새로운 합성 전략 및 다단계 합성</div>
+                <div class="people-item">박○○ (MS) – 기능성 유기 분자 합성 및 특성 평가</div>
+              </div>
+            </div>
+
+            <div class="people-group" style="margin-top:1.3rem;">
+              <h4>Undergraduate / Interns</h4>
+              <div class="people-list">
+                <div class="people-item">최○○ – 합성 실험 보조 및 샘플 분석</div>
+                <div class="people-item">정○○ – 촉매 반응 조건 스크리닝</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications & News -->
+    <section id="publications">
+      <div class="container">
+        <div class="section-header">
+          <div class="pill">Publications &amp; News</div>
+          <h2>연구성과 및 소식</h2>
+        </div>
+
+        <div class="two-column">
+          <!-- Publications -->
+          <div>
+            <h3>Selected Publications</h3>
+            <ul class="pub-list">
+              <li>
+                Baek, D.; Kim, O. <span class="pub-venue">
+                “Development of Novel Organic Synthesis Pathways”, Org. Lett., 2024.</span>
+              </li>
+              <li>
+                Kim, O.; Baek, D. <span class="pub-venue">
+                “Functional Organic Molecules for Catalysis”, Chem. Sci., 2023.</span>
+              </li>
+              <li>
+                Park, O.; Baek, D. <span class="pub-venue">
+                “Mechanistic Study on Selective Reactions”, J. Org. Chem., 2022.</span>
+              </li>
+            </ul>
+
+            <div class="google-scholar">
+              Google Scholar 링크: <br />
+              <a href="#" style="color:var(--deep-green); text-decoration:underline;">
+                (추후 Prof. Baek의 Scholar URL을 여기에 추가하세요)
+              </a>
+            </div>
+          </div>
+
+          <!-- News -->
+          <div id="news">
+            <h3>News &amp; Events</h3>
+            <ul class="news-list">
+              <li>2025.02 — BEAK LAB 신규 박사·석사 과정 학생 모집 시작</li>
+              <li>2024.12 — 기능성 유기 분자 기반 신소재 연구 과제 수주</li>
+              <li>2024.10 — 유기합성 관련 논문 국제 저널 게재</li>
+              <li>2024.06 — BEAK LAB 워크숍 및 그룹 미팅 개최</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Join Us -->
+    <section id="join">
+      <div class="container">
+        <div class="section-header">
+          <div class="pill">Join Us</div>
+          <h2>지원 안내 (Join BEAK LAB)</h2>
+          <p class="lead">
+            유기화학 연구에 열정을 가진 석사/박사/인턴 연구원을 상시적으로 검토합니다.
+          </p>
+        </div>
+
+        <div class="two-column">
+          <div>
+            <h3>모집 분야</h3>
+            <ul class="join-list">
+              <li>Organic synthesis – 새로운 유기 합성 반응 및 합성 경로 설계</li>
+              <li>Reaction mechanism – 반응 메커니즘 규명 및 전이상태 분석</li>
+              <li>Functional molecules – 센서·촉매·소재용 기능성 분자 설계</li>
+              <li>Catalysis – 금속 및 유기 촉매 시스템 개발</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>지원 방법</h3>
+            <ul class="join-list">
+              <li>1) CV (이력서) 및 간단한 자기소개서 제출</li>
+              <li>2) 성적표 및 연구 경험(있다면) 첨부</li>
+              <li>3) 이메일 제목에 “[BEAK LAB 지원] 학위 과정 / 이름” 명시</li>
+              <li>4) 지원 및 문의: <strong>dhbaek@university.edu</strong></li>
+            </ul>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.6rem;">
+              We welcome highly motivated students with strong interest in organic chemistry.
+              Feel free to contact us in English or Korean.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <div class="pill">Contact</div>
+          <h2>위치 및 연락처 (Contact)</h2>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>BEAK LAB</h3>
+            <p>Department of Chemistry, ○○ University</p>
+            <p>Address: ○○시 ○○구 ○○로 123, ○○관 301호</p>
+            <p>Email: <strong>dhbaek@university.edu</strong></p>
+            <p style="margin-top:0.8rem;">
+              For collaboration, visiting positions, or seminar invitations,
+              please contact Prof. Doohyun Baek via email.
+            </p>
+          </div>
+
+          <div class="map-placeholder">
+            여기에 Google Maps 또는 캠퍼스 지도 iframe을 삽입할 수 있습니다.<br />
+            (예: &lt;iframe src="..." width="100%" height="260"&gt;&lt;/iframe&gt;)
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> BEAK LAB · Dept. of Chemistry, ○○ University</span>
+      <span style="font-size:0.78rem;">Organic Chemistry · Prof. Doohyun Baek</span>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+      });
+    });
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href");
+        if (targetId.length > 1) {
+          e.preventDefault();
+          const el = document.querySelector(targetId);
+          if (el) {
+            window.scrollTo({
+              top: el.offsetTop - 70,
+              behavior: "smooth",
+            });
+          }
+        }
+      });
+    });
+
+    // Set year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
